@@ -191,10 +191,11 @@ export const FileUploadZone: React.FC<FileUploadZoneProps> = ({ onUploadSuccess 
           )
         );
       } catch (err: any) {
+        const rawMsg: string = err?.message ?? String(err);
         const errMsg: string =
-          err?.message?.includes('Failed to fetch') || err?.message?.includes('NetworkError')
-            ? `Cannot reach backend. Ensure the Render server is running at ${API_BASE_URL}.`
-            : err?.message ?? 'Unknown upload error.';
+          rawMsg.includes('Failed to fetch') || rawMsg.includes('NetworkError')
+            ? `Backend connection error at ${API_BASE_URL}: ${rawMsg}`
+            : rawMsg;
 
         setFileQueue(prev =>
           prev.map((e, idx) =>
