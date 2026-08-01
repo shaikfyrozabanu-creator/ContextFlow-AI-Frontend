@@ -8,7 +8,7 @@ const getApiBaseUrl = (): string => {
   if (envUrl && typeof envUrl === 'string' && envUrl.trim() !== '') {
     return envUrl.trim().replace(/\/+$/, '');
   }
-  return 'https://rag-chatbot-95hw.onrender.com';
+  return 'https://rag-chatbot-1-fkvu.onrender.com';
 };
 
 export const API_BASE_URL = getApiBaseUrl();
