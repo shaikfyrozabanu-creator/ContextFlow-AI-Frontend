@@ -10,6 +10,7 @@ import { RetrievalHeatmap } from '../components/RetrievalHeatmap';
 import { AdminSystemPanel } from '../components/AdminSystemPanel';
 import { AiSettingsPanel } from '../components/AiSettingsPanel';
 import { DocumentComparator } from '../components/DocumentComparator';
+import { API_BASE_URL } from '../services/apiConfig';
 import { EvaluationPanel } from '../components/EvaluationPanel';
 import { toast } from '../components/Toast';
 
@@ -54,7 +55,7 @@ export const AdminPage: React.FC = () => {
   // Live health-check for vector DB status
   const checkVectorDb = async () => {
     try {
-      const res = await fetch('http://localhost:8000/health', { signal: AbortSignal.timeout(4000) });
+      const res = await fetch(`${API_BASE_URL}/health`, { signal: AbortSignal.timeout(4000) });
       setVectorDbStatus(res.ok ? 'connected' : 'error');
     } catch {
       setVectorDbStatus('error');

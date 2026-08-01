@@ -9,6 +9,7 @@ import { mockStorage, type Chat, type ChatSettings } from '../services/mockStora
 import { mockAiService } from '../services/mockAiService';
 import ChatWindow from '../components/ChatWindow';
 import { toast } from '../components/Toast';
+import { API_BASE_URL } from '../services/apiConfig';
 
 // Helper to group conversations by date categories
 interface DateGroup {
@@ -112,7 +113,7 @@ export const ChatPage: React.FC = () => {
   // Supabase Syncing Handler
   const syncChatsWithSupabase = async () => {
     try {
-      const res = await fetch('http://localhost:8000/chats', { signal: AbortSignal.timeout(3000) });
+      const res = await fetch(`${API_BASE_URL}/chats`, { signal: AbortSignal.timeout(3000) });
       if (res.ok) {
         const data = await res.json();
         if (data.chats && data.chats.length > 0) {

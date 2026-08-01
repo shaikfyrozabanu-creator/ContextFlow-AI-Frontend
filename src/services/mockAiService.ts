@@ -231,7 +231,7 @@ export const mockAiService = {
     const memories = mockStorage.getMemories();
 
     try {
-      // Primary Attempt: Call FastAPI backend endpoint (http://127.0.0.1:8000/chat)
+      // Primary Attempt: Call FastAPI backend endpoint
       let response = await fetch(`${API_BASE_URL}/chat`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -241,21 +241,6 @@ export const mockAiService = {
           memories: memories,
         }),
       }).catch(() => null);
-
-      // Secondary Attempt: Try localhost fallback if 127.0.0.1 failed
-      if (!response || !response.ok) {
-        if (API_BASE_URL.includes('127.0.0.1')) {
-          response = await fetch('http://localhost:8000/chat', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-              question: query,
-              session_id: chatId,
-              memories: memories,
-            }),
-          }).catch(() => null);
-        }
-      }
 
       if (response && response.ok) {
         const data = await response.json();

@@ -10,6 +10,7 @@ import { SmartAutocompletePopup } from './SmartAutocompletePopup';
 import { VoiceAssistantController } from './VoiceAssistantController';
 import { RagPipelineTimeline } from './RagPipelineTimeline';
 import { AnswerTelemetryDrawer } from './AnswerTelemetryDrawer';
+import { API_BASE_URL } from '../services/apiConfig';
 
 interface ChatWindowProps {
   messages: Message[];
@@ -525,7 +526,7 @@ export const ChatWindow: React.FC<ChatWindowProps> = ({
                                     const scorePct = src.score !== undefined ? Math.round(src.score * 100) : 95;
                                     const chunkNumStr = src.chunkId ? src.chunkId.split('-').pop()?.toUpperCase() : `${sIdx + 1}`;
                                     const pageNum = src.pageNumber ?? 1;
-                                    const directPdfUrl = `http://localhost:8000/uploads/${encodeURIComponent(src.filename)}#page=${pageNum}`;
+                                    const directPdfUrl = `${API_BASE_URL}/uploads/${encodeURIComponent(src.filename)}#page=${pageNum}`;
 
                                     return (
                                       <div

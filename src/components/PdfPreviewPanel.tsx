@@ -3,6 +3,7 @@ import {
   X, FileText, ExternalLink, AlertCircle, Highlighter, ChevronDown, ChevronUp,
   ZoomIn, ZoomOut, RotateCw, Search, Grid, Maximize2, Minimize2, ChevronLeft, ChevronRight
 } from 'lucide-react';
+import { API_BASE_URL } from '../services/apiConfig';
 
 interface PdfPreviewPanelProps {
   filename: string | null;
@@ -35,7 +36,7 @@ export const PdfPreviewPanel: React.FC<PdfPreviewPanelProps> = ({
 
   // Construct PDF URL with page anchor
   const pdfUrl = filename
-    ? `http://localhost:8000/uploads/${encodeURIComponent(filename)}#page=${currentPage}`
+    ? `${API_BASE_URL}/uploads/${encodeURIComponent(filename)}#page=${currentPage}`
     : null;
 
   // Reset iframe error state on new file
