@@ -90,7 +90,16 @@ async function uploadFile(
 
     if (!response.ok) {
       const errData = await response.json().catch(() => ({}));
-      const detail: string = errData.detail ?? `Server responded with ${response.status}`;
+      let detail = `Server responded with HTTP ${response.status}`;
+      if (typeof errData.detail === 'string') {
+        detail = errData.detail;
+      } else if (Array.isArray(errData.detail)) {
+        detail = errData.detail.map((e: any) => e.msg || JSON.stringify(e)).join('; ');
+      } else if (errData.message && typeof errData.message === 'string') {
+        detail = errData.message;
+      } else if (errData.detail) {
+        detail = JSON.stringify(errData.detail);
+      }
       throw new Error(detail);
     }
 
